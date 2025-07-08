@@ -1,0 +1,17 @@
+[project]
+name = "mcp-quickstart-servers"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "async-lru>=2.0.5",
+    "databricks-sdk>=0.54.0",
+    "mcp[cli]>=1.9.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+    "python-dotenv>=1.1.0",
+]
