@@ -165,7 +165,7 @@ def format_table_details(columns: list[dict[str, Any]]) -> str:
 
 
 @mcp.tool(
-    name="Get table details",
+    name="get-uc-table-details",
     description="Get the column names and data types for a specific Databricks table.",
 )
 async def get_table_columns(
@@ -218,7 +218,7 @@ def format_table_matches(table_matches: list[str]) -> str:
 
 
 @mcp.tool(
-    name="Find full table name",
+    name="find-full-uc-table-name",
     description="Find the full table name(s) in a Databricks workspace by searching for partial matches.",
 )
 async def find_full_table_name(table_name: str) -> str:
