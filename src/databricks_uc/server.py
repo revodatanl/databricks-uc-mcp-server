@@ -121,7 +121,7 @@ async def get_tables(catalogs_and_schemas: str) -> list[dict[str, Any]]:
     return [{"full_table_name": tables.full_name} for tables in tables]
 
 
-async def get_all_tables() -> dict[str, Any]:
+async def get_all_tables() -> list[dict[str, Any]]:
     """Get all the tables in a Databricks workspace.
 
     This function retrieves all tables across all catalogs and schemas in the workspace
@@ -143,7 +143,7 @@ async def get_all_tables() -> dict[str, Any]:
         catalogs_and_schemas.extend(await get_catalogs_and_schemas(catalog["name"]))
 
     # For each catalog.schema, get all tables
-    all_tables = []
+    all_tables: list[dict[str, Any]] = []
     for catalog_and_schema in catalogs_and_schemas:
         all_tables.extend(await get_tables(catalog_and_schema["name"]))
 
