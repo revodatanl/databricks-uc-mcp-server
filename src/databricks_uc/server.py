@@ -264,5 +264,8 @@ async def find_full_table_name(table_name: str) -> str:
         return f"No matching tables found for table {table_name}"
 
 
-if __name__ == "__main__":
+def main():
     mcp.run()
+
+if __name__ == "__main__":
+    main()
