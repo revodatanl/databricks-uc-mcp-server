@@ -95,8 +95,9 @@ async def get_table_details_by_full_tablename(
 
 
 def main():
+    # Core application logic
     mcp.run()
 
 
 if __name__ == "__main__":
-    mcp.run()
+    main()
