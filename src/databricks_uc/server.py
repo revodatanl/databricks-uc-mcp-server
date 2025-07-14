@@ -14,15 +14,14 @@ import configparser
 from async_lru import alru_cache
 from mcp.server.fastmcp import FastMCP
 
-from modules.get_all_tables import get_all_tables
-from modules.get_table_details import get_table_details
+from uc.get_all_tables import get_all_tables
+from uc.get_table_details import get_table_details
 
 
 # Initialize FastMCP server
 mcp = FastMCP("RevoData Databricks Unity Catalog MCP")
 
 
-@alru_cache()
 @mcp.tool(
     name="get-databricks-profiles",
     description="Get all databricks profiles from the user's configuration file to authenticate with Databricks. Always ask which profile the user wants to use. Never print out the tokens to the user.",

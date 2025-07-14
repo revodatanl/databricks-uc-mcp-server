@@ -1,7 +1,7 @@
 import asyncio
 import aiohttp
 
-from modules.utils import fetch_with_backoff
+from uc.utils import fetch_with_backoff
 
 # Adjust this to control concurrency (Databricks recommends being conservative)
 MAX_CONCURRENT_REQUESTS = 8
