@@ -5,8 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "aiohttp>=3.12.14",
     "async-lru>=2.0.5",
-    "databricks-sdk>=0.54.0",
     "mcp[cli]>=1.9.1",
 ]
 
