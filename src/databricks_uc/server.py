@@ -24,15 +24,14 @@ mcp = FastMCP("RevoData Databricks Unity Catalog MCP")
 
 @mcp.tool(
         name="get-databricks-profiles",
-        description="Get all databricks profiles from the user's configuration file to authenticate with Databricks"
+        description="Get all databricks profiles from the user's configuration file to authenticate with Databricks. Always ask which profile the user wants to use. Never print out the tokens to the user."
 )
-async def get_databricks_profiles():
+def get_databricks_profiles():
     """
-    List available workspace profiles containing host/token combinations from the .databrickscfg file located in the user's home folder.
-    Always ask which profile the user wants to use.
+    Retrieves all available Databricks Workspace profiles (host/token combinations) from the user's .databrickscfg configuration file.
 
     Returns:
-        dict[str, dict[str, str]]
+        dict[str, dict[str, str]]: A dictionary mapping profile names to their corresponding configuration key-value pairs.
     """
     config_path = os.path.expanduser('~/.databrickscfg')
     config = configparser.ConfigParser()
