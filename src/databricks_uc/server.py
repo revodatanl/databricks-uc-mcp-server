@@ -21,10 +21,11 @@ from modules.get_table_details import get_table_details
 # Initialize FastMCP server
 mcp = FastMCP("RevoData Databricks Unity Catalog MCP")
 
+
 @alru_cache()
 @mcp.tool(
-        name="get-databricks-profiles",
-        description="Get all databricks profiles from the user's configuration file to authenticate with Databricks. Always ask which profile the user wants to use. Never print out the tokens to the user."
+    name="get-databricks-profiles",
+    description="Get all databricks profiles from the user's configuration file to authenticate with Databricks. Always ask which profile the user wants to use. Never print out the tokens to the user.",
 )
 def get_databricks_profiles():
     """
@@ -33,7 +34,7 @@ def get_databricks_profiles():
     Returns:
         dict[str, dict[str, str]]: A dictionary mapping profile names to their corresponding configuration key-value pairs.
     """
-    config_path = os.path.expanduser('~/.databrickscfg')
+    config_path = os.path.expanduser("~/.databrickscfg")
     config = configparser.ConfigParser()
     with open(config_path, "r") as f:
         config.read_file(f)
@@ -41,8 +42,9 @@ def get_databricks_profiles():
     for section in config.sections():
         items = dict(config.items(section))
         output_dict[section] = items
-    
+
     return output_dict
+
 
 @alru_cache()
 @mcp.tool(
@@ -56,7 +58,7 @@ async def get_all_tables_in_workspace(databricks_host: str, databricks_token: st
     Args:
         databricks_host (str): databricks host
         databricks_token (str): databricks token
-    
+
     Returns:
         dict[str, any]:
             On success: {"resource": <nested catalog-schema-table dict>, "status": "success"}
@@ -67,12 +69,14 @@ async def get_all_tables_in_workspace(databricks_host: str, databricks_token: st
 
 
 @mcp.tool(
-        name="get-table-details",
-        description="Get table details like description and columns from the full three-level namespace catalog.schema.tablename"
+    name="get-table-details",
+    description="Get table details like description and columns from the full three-level namespace catalog.schema.tablename",
 )
-async def get_table_details_by_full_tablename(databricks_host: str, databricks_token: str, full_table_names: list[str]):
+async def get_table_details_by_full_tablename(
+    databricks_host: str, databricks_token: str, full_table_names: list[str]
+):
     """
-    Synchronously retrieves table details from multiple supplied table names. 
+    Synchronously retrieves table details from multiple supplied table names.
 
     Args:
         databricks_host (str): databricks host
@@ -84,7 +88,9 @@ async def get_table_details_by_full_tablename(databricks_host: str, databricks_t
             On success: {"resource": <list of dictionaries containing table data>, "status": "success"}
             On failure: {"error": {"message": <error message>}}
     """
-    result = await get_table_details(databricks_host, databricks_token, full_table_names)
+    result = await get_table_details(
+        databricks_host, databricks_token, full_table_names
+    )
     return result
 
 

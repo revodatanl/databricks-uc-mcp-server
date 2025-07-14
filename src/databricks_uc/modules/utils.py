@@ -1,6 +1,7 @@
 import asyncio
 import aiohttp
 
+
 async def fetch_with_backoff(
     session: aiohttp.ClientSession,
     url: str,
