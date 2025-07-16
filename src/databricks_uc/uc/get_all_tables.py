@@ -10,7 +10,7 @@ MAX_RETRIES = 5
 BASE_DELAY = 0.5
 
 
-async def get_catalogs(session: str) -> list[str]:
+async def get_catalogs(session: aiohttp.ClientSession) -> list[str]:
     """
     Asynchronously retrieves a list of catalog names from the Databricks Unity Catalog API,
     excluding catalogs created by the System user.
@@ -31,7 +31,7 @@ async def get_catalogs(session: str) -> list[str]:
     ]
 
 
-async def get_schemas_in_catalog(session: str, catalog_name: str) -> list[str]:
+async def get_schemas_in_catalog(session: aiohttp.ClientSession, catalog_name: str) -> list[str]:
     """
     Asynchronously retrieves a list of schema names from a specified catalog in the Databricks Unity Catalog API,
     excluding the information_schema.
@@ -53,7 +53,7 @@ async def get_schemas_in_catalog(session: str, catalog_name: str) -> list[str]:
 
 
 async def get_tables_in_schema(
-    session: str,
+    session: aiohttp.ClientSession,
     catalog_name: str,
     schema_name: str,
 ) -> list[str]:
