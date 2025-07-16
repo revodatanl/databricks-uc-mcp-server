@@ -12,8 +12,6 @@ BASE_DELAY = 0.5
 
 async def get_single_table_details(
     session: aiohttp.ClientSession,
-    databricks_host: str,
-    headers: dict[str, str],
     full_table_name: list[str],
 ):
     """
@@ -29,15 +27,15 @@ async def get_single_table_details(
         dict: The JSON response containing table metadata and details.
 
     """
-    url = f"{databricks_host}/api/2.1/unity-catalog/tables/{full_table_name}"
+    endpoint = f"unity-catalog/tables/{full_table_name}"
     data = await fetch_with_backoff(
-        session, url, headers, semaphore, MAX_RETRIES, BASE_DELAY
+        session, endpoint, semaphore, MAX_RETRIES, BASE_DELAY
     )
     return data
 
 
 async def get_all_table_details_asynchronous(
-    databricks_host: str, headers: dict, full_table_names: list[str]
+    full_table_names: list[str],
 ) -> list[dict[str, any]]:
     """
     Asynchronously retrieves detailed metadata for multiple tables from the Databricks Unity Catalog API.
@@ -52,7 +50,7 @@ async def get_all_table_details_asynchronous(
     """
     async with aiohttp.ClientSession() as session:
         table_tasks = [
-            get_single_table_details(session, databricks_host, headers, full_table_name)
+            get_single_table_details(session, full_table_name)
             for full_table_name in full_table_names
         ]
         tables_nested = await asyncio.gather(*table_tasks)
@@ -78,9 +76,7 @@ async def get_all_table_details_asynchronous(
         return result
 
 
-async def get_table_details(
-    databricks_host, databricks_token, full_table_names
-) -> dict[str, any]:
+async def get_table_details(full_table_names) -> dict[str, any]:
     """
     Asynchronously retrieves metadata for multiple Databricks tables and returns the results in a standardized response format.
 
@@ -93,14 +89,8 @@ async def get_table_details(
         dict[str, any]: On success, returns {"resource": <list of table metadata>, "status": "success"}.
                         On failure, returns {"error": {"message": <error message>}}.
     """
-    headers = {
-        "Authorization": f"Bearer {databricks_token}",
-        "Content-Type": "application/json",
-    }
     try:
-        all_table_details = await get_all_table_details_asynchronous(
-            databricks_host, headers, full_table_names
-        )
+        all_table_details = await get_all_table_details_asynchronous(full_table_names)
         return {"resource": all_table_details, "status": "success"}
     except Exception as e:
         print(e)
