@@ -1,6 +1,6 @@
 import asyncio
 
-from server.mcp_server import DatabricksMCPServer
+from databricks_uc.server.mcp_server import DatabricksMCPServer
 
 async def start_mcp_server():
 
@@ -13,6 +13,9 @@ async def main():
     await start_mcp_server()
 
 
+def entrypoint():
+    asyncio.run(main())
+
 if __name__ == "__main__":
     
-    asyncio.run(main())
+    entrypoint()
