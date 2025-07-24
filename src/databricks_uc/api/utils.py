@@ -6,17 +6,18 @@ from contextlib import asynccontextmanager
 
 
 @dataclass
-class UCClientConfig:
+class AsyncClientConfig:
     max_concurrent_requests: int = 8
     max_retries: int = 5
     base_delay: float = 0.5
 
 @asynccontextmanager
-async def get_uc_session(config: UCClientConfig):
+async def get_async_session():
     """Context manager for Unity Catalog session handling"""
+    config = AsyncClientConfig()
     semaphore = asyncio.Semaphore(config.max_concurrent_requests)
     async with aiohttp.ClientSession() as session:
-        yield session, semaphore, config
+        yield session, semaphore
 
 
 async def fetch_with_backoff(
@@ -25,6 +26,7 @@ async def fetch_with_backoff(
     semaphore: asyncio.Semaphore,
     max_retries: int = 5,
     base_delay: float = 0.5,
+    additional_headers: dict = {}
 ) -> dict:
     """
     Asynchronously fetches JSON data from a given URL using an aiohttp ClientSession,
@@ -33,12 +35,16 @@ async def fetch_with_backoff(
     databricks_host = os.getenv("DATABRICKS_HOST")
     databricks_token = os.getenv("DATABRICKS_TOKEN")
     assert databricks_host is not None and databricks_token is not None
+    print(databricks_host)
+    print(databricks_token)
 
     url = f"{databricks_host}/api/2.1/{endpoint}"
     headers = {
         "Authorization": f"Bearer {databricks_token}",
         "Content-Type": "application/json",
     }
+    headers.update(additional_headers)
+    print(headers)
     delay = base_delay
     for attempt in range(max_retries):
         async with semaphore:

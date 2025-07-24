@@ -3,7 +3,7 @@ from async_lru import alru_cache
 from mcp.server import FastMCP
 
 import api.unity_catalog_client as UCClient
-import api.cluster_client as ClusterClient
+import api.jobs_client as JobsClient
 
 
 class DatabricksMCPServer(FastMCP):
@@ -35,7 +35,7 @@ class DatabricksMCPServer(FastMCP):
             description="Retrieve a list of all jobs in the workspace including details",
         )
         async def get_jobs_in_workspace():
-            return await ClusterClient.list_jobs()
+            return await JobsClient.list_jobs()
 
 
 async def main():
