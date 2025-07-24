@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 from typing import Optional, List, Dict, Any
 
-from api.utils import (
+from databricks_uc.api.utils import (
     fetch_with_backoff,
     format_toolcall_response,
     UCClientConfig,
