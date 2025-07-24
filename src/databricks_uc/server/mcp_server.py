@@ -2,8 +2,8 @@ import asyncio
 from async_lru import alru_cache
 from mcp.server import FastMCP
 
-import api.unity_catalog_client as UCClient
-import api.jobs_client as JobsClient
+import databricks_uc.api.unity_catalog_client as UCClient
+import databricks_uc.api.jobs_client as JobsClient
 
 
 class DatabricksMCPServer(FastMCP):

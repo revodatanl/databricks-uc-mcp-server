@@ -4,4 +4,4 @@ WORKDIR /app
 ADD . /app
 RUN uv sync
 
-CMD ["uv", "run", "--directory", "/app", "python", "-m", "src.databricks_uc.server"]
+CMD ["uv", "run", "databricks-mcp"]
