@@ -1,6 +1,6 @@
 import asyncio
 
-from databricks_uc.server.mcp_server import DatabricksMCPServer
+from databricks_mcp.server.mcp_server import DatabricksMCPServer
 
 async def start_mcp_server():
 

@@ -11,6 +11,7 @@ class AsyncClientConfig:
     max_retries: int = 5
     base_delay: float = 0.5
 
+
 @asynccontextmanager
 async def get_async_session():
     """Context manager for Unity Catalog session handling"""
@@ -26,7 +27,7 @@ async def fetch_with_backoff(
     semaphore: asyncio.Semaphore,
     max_retries: int = 5,
     base_delay: float = 0.5,
-    additional_headers: dict = {}
+    additional_headers: dict = {},
 ) -> dict:
     """
     Asynchronously fetches JSON data from a given URL using an aiohttp ClientSession,
@@ -66,14 +67,6 @@ def format_toolcall_response(
 ):
     """
     Format a tool call response into a standardized dictionary structure.
-
-    Args:
-        success (bool): Whether the tool call was successful.
-        content (dict, optional): Response content if success is True. Defaults to None.
-        error (Exception, optional): Exception object if success is False. Defaults to None.
-
-    Returns:
-        dict: A dictionary containing either the content or error message.
     """
     response = {"success": success}
     if success:
