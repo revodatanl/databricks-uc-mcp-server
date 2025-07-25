@@ -36,8 +36,6 @@ async def fetch_with_backoff(
     databricks_host = os.getenv("DATABRICKS_HOST")
     databricks_token = os.getenv("DATABRICKS_TOKEN")
     assert databricks_host is not None and databricks_token is not None
-    print(databricks_host)
-    print(databricks_token)
 
     url = f"{databricks_host}/api/2.1/{endpoint}"
     headers = {
@@ -45,7 +43,6 @@ async def fetch_with_backoff(
         "Content-Type": "application/json",
     }
     headers.update(additional_headers)
-    print(headers)
     delay = base_delay
     for attempt in range(max_retries):
         async with semaphore:

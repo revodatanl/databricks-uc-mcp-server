@@ -105,7 +105,7 @@ async def get_tables_details(full_table_names: List[str]) -> Dict[str, Any]:
     """
 
     try:
-        async with get_async_session() as (session, semaphore, cfg):
+        async with get_async_session() as (session, semaphore):
             # Fetch details for all tables concurrently
             table_tasks = [
                 _get_table_details(session, semaphore, table_name)
