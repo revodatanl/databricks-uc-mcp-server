@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-databricks-mcp = "databricks_uc.main:entrypoint"
+databricks-mcp = "databricks_mcp.main:entrypoint"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/databricks_uc"]
+packages = ["src/databricks_mcp"]
