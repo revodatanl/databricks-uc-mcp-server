@@ -382,7 +382,7 @@ dev = [
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.14.1" },
     { name = "async-lru", specifier = ">=2.0.5" },
-    { name = "mcp", extras = ["cli"], specifier = ">=1.28.1" },
+    { name = "mcp", extras = ["cli"], specifier = ">=1.28.1,<2" },
     { name = "rapidfuzz", specifier = ">=3.14.3" },
 ]
 
